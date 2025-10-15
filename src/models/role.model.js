@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
-const { sequelize } = require("../db");
+const { sequelize } = require("../database/db");
 
 class Role extends Model {}
 

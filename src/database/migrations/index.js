@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { sequelize } = require("../../models");
+const { sequelize } = require("../../models"); // Importar desde models/index.js
 
 (async () => {
   try {

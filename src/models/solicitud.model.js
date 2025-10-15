@@ -1,12 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
-const { sequelize } = require("../db");
-const Employee = require("./employee.model");
-
-const SOLICITUD_STATUS = {
-  PENDIENTE: "pendiente",
-  CANCELADA: "cancelada",
-  COMPLETADA: "completada",
-};
+const { sequelize } = require("../database/db");
+const { SOLICITUD_STATUS } = require("../constants/solicitud");
 
 class Solicitud extends Model {}
 
@@ -23,6 +17,14 @@ Solicitud.init(
       defaultValue: SOLICITUD_STATUS.PENDIENTE,
       allowNull: false,
     },
+    employeeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "employees",
+        key: "id",
+      },
+    },
   },
   {
     sequelize,
@@ -30,8 +32,5 @@ Solicitud.init(
     timestamps: true,
   }
 );
-
-Employee.hasMany(Solicitud, { foreignKey: "employeeId", onDelete: "CASCADE" });
-Solicitud.belongsTo(Employee, { foreignKey: "employeeId" });
 
 module.exports = Solicitud;
